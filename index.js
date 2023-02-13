@@ -3,6 +3,10 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
 const app = express();
+
+app.set("view engine", "ejs");
+app.use(express.static("public"));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const uri = "mongodb://localhost:27017/productsDB";
@@ -37,10 +41,10 @@ const productSchema = {
     required: [true, "Product must have Price"],
   },
   isFeatured: {
-    type: Boolean
+    type: Boolean,
   },
   rating: {
-    type: mongoose.Types.Decimal128
+    type: mongoose.Types.Decimal128,
   },
   createdAt: {
     type: Date,
@@ -49,25 +53,19 @@ const productSchema = {
   company: {
     type: String,
     required: [true, "Product must have company name"],
-  }
+  },
 };
 
 const Product = mongoose.model("Product", productSchema);
 
-
-
-
-
-
-
 app.get("/", (req, res) => {
-  res.send("Home route is OK");
+  res.send("allproducts");
 });
 
-app.get("/allproducts", (req, res) => {
-  Product.find((err, data) => {
+app.get("/viewall", (req, res) => {
+  Product.find({}, (err, data) => {
     if (err) console.log(err);
-    else res.send(data);
+    else res.render("viewall", { products: data });
   });
 });
 
@@ -78,17 +76,31 @@ app.get("/featured", (req, res) => {
   });
 });
 
+app.get("/create", (req, res) => {
+  res.render("create");
+});
 
+app.get("/update", (req, res) => {
+  res.render("update");
+});
 
-
-
+app.get("/failure", (req, res) => {
+  res.render("failure");
+});
+app.get("/success", (req, res) => {
+  res.render("success");
+});
 
 app.post("/create", (req, res) => {
+  // if(req.body.prodIsFeatured === 'true')
+  // var featureStatus = true;
+  // else featureStatus = false;
+
   const newProduct = new Product({
     productID: req.body.prodID,
     name: req.body.prodName,
     price: req.body.prodPrice,
-    isFeatured: req.body.prodIsFeatured,
+    isFeatured: req.body.prodIsFeatured === "true" ? true : false,
     rating: req.body.prodRating,
     createdAt: req.body.prodDate,
     company: req.body.prodCompany,
@@ -99,33 +111,68 @@ app.post("/create", (req, res) => {
       console.log(err);
     }
   });
-  res.send(newProduct);
+  res.redirect("/");
 });
 
-app.post("/update", (req, res)=> {
-  const change = {
-    name: req.body.prodName,
-    price: req.body.prodPrice,
-    isFeatured: req.body.prodIsFeatured,
-    rating: req.body.prodRating,
-    createdAt: req.body.prodDate,
-    company: req.body.prodCompany,
-  };
-  Product.findOneAndUpdate(
-    { productID: req.body.prodID },
-    change,
-    (err, data) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.send(data);
-        console.log("Data updated!");
-      }
+// app.post("/update", (req, res)=> {
+//   const change = {
+//     name: req.body.prodName,
+//     price: req.body.prodPrice,
+//     isFeatured: req.body.prodIsFeatured,
+//     rating: req.body.prodRating,
+//     createdAt: req.body.prodDate,
+//     company: req.body.prodCompany,
+//   };
+//   Product.findOneAndUpdate(
+//     { productID: req.body.prodID },
+//     change,
+//     (err, data) => {
+//       if (err) {
+//         console.log(err);
+//         res.redirect("/failure");
+//       } else {
+//         res.redirect('/success');
+//         console.log("Data updated!");
+//       }
+//     }
+//   );
+//});
+
+app.post("/update", (req, res) => {
+  Product.findOne({ productID: req.body.prodID }, (err, product) => {
+    if (err) {
+      console.log(err);
+      res.redirect("/failure");
+    } else if (!product) {
+      console.log("Product not found");
+      res.redirect("/failure");
+    } else {
+      const change = {
+        name: req.body.prodName,
+        price: req.body.prodPrice,
+        isFeatured: req.body.prodIsFeatured,
+        rating: req.body.prodRating,
+        createdAt: req.body.prodDate,
+        company: req.body.prodCompany,
+      };
+      Product.findOneAndUpdate(
+        { productID: req.body.prodID },
+        change,
+        (err, data) => {
+          if (err) {
+            console.log(err);
+            res.redirect("/failure");
+          } else {
+            res.redirect("/success");
+            console.log("Data updated!");
+          }
+        }
+      );
     }
-  );
+  });
 });
 
-app.post("/delete", (req, res)=> {
+app.post("/delete", (req, res) => {
   Product.deleteOne({ productID: req.body.prodID }, function (err, data) {
     if (err) {
       console.log(err);
@@ -149,6 +196,10 @@ app.post("/rgt", (req, res) => {
     if (err) console.log(err);
     else res.send(data);
   });
+});
+
+app.post("/viewall", (req, res) => {
+  res.redirect("/viewall");
 });
 
 const PORT = 4000 || process.env.PORT;

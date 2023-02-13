@@ -1,0 +1,22 @@
+footer {
+    color: white;
+    color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+  }
+
+  .required-field::before {
+    content: "*";
+    color: red;
+    float: right;
+  }
+
+  .container-form {
+    max-width: 550px;
+}
+
+input[type=date]:required:invalid::-webkit-datetime-edit {
+    color: transparent;
+}
+input[type=date]:focus::-webkit-datetime-edit {
+    color: black !important;
+}

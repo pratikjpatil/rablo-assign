@@ -1,0 +1,38 @@
+<%- include("header") -%>
+
+<div class="container pt-5">
+<h2 class="text-center">All Products</h2>
+
+<div class="py-4">
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Featured</th>
+        <th>Rating</th>
+        <th>Mfg date</th>
+        <th>Company</th>
+    </tr>
+    <% products.forEach(function(product){ %>
+    <tr>
+        <td><%= product.productID %></td>
+        <td><%= product.name %></td>
+        <td><%= product.price %></td>
+        <% if (product.isFeatured) { %>
+            <td>Yes</td>
+
+        <% }else { %>
+            <td>No</td>
+        <% } %>
+        
+        <td><%= product.rating %></td>
+        <td><%= product.createdAt %></td>
+        <td><%= product.company %></td>
+    </tr>
+    <%})%>
+</table>
+</div>
+</div>
+
+<%- include("footer") -%>

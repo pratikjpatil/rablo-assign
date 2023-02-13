@@ -1,0 +1,63 @@
+<%- include("header") -%>
+
+
+
+
+
+
+<div class="container container-form mt-5">
+    <div class="card">
+    <h4 class="card-header text-center">Add product</h4>
+    <div class="card-body">
+    <form action="/create" method="post" class="needs-validation" novalidate>
+        <div class="form-group">
+          <label for="prodID" class="form-label required-field">Product ID</label>
+          <input type="text" class="form-control" id="prodID" name="prodID" required>
+          <div id="prodID" class="form-text">This is required field.</div>
+        </div>
+        
+        <div class="form-group pt-3">
+            <label for="prodName" class="form-label required-field">Name</label>
+            <input type="text" class="form-control" id="prodName" name="prodName" required>
+            <div id="prodName" class="form-text">This is required field.</div>
+          </div>
+
+          <div class="form-group pt-3">
+            <label for="prodPrice" class="form-label required-field">Price</label>
+            <input type="number" class="form-control" id="prodPrice" name="prodPrice" required>
+            <div id="prodPrice" class="form-text">Enter digits only.</div>
+          </div>
+
+          <div class="form-group pt-3">
+            <label for="prodRating" class="form-label skip-validation">Rating</label>
+            <input type="number" step="0.1" min="0" max="5" class="form-control" id="prodRating" name="prodRating">
+            <div id="prodID" class="form-text">Add rating from 0.0 to 5.0.</div>
+          </div>
+
+          <div class="form-group pt-3">
+            <label for="prodDate" class="form-label required-field">MFG Date</label>
+            <input type="date" class="form-control" id="prodDate" name="prodDate" required>
+            <div id="prodID" class="form-text">This is required field.</div>
+          </div>
+
+          <div class="form-group pt-3">
+            <label for="prodCompany" class="form-label required-field">Company Name</label>
+            <input type="text" class="form-control" id="prodCompany" name="prodCompany" required>
+            <div id="prodID" class="form-text">This is required field.</div>
+          </div>
+          
+          <div class="form-group form-check pt-3">
+            <input type="checkbox" class="form-check-input skip-validation" id="prodIsFeatured" name="prodIsFeatured" value="true">
+            <label class="form-check-label" for="prodIsFeatured">Check if product is featured</label>
+          </div>
+
+
+          <div class="form-group d-grid pt-3">
+        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </div>
+      </form>
+    </div>
+</div>
+</div>
+
+<%- include("footer") -%>
