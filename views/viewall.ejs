@@ -13,6 +13,8 @@
         <th>Rating</th>
         <th>Mfg date</th>
         <th>Company</th>
+        <th>Delete</th>
+        <th>Update</th>
     </tr>
     <% products.forEach(function(product){ %>
     <tr>
@@ -35,14 +37,14 @@
               <button class="btn btn-danger" name="_ID" value="<%=product._id%>" onChange="this.form.submit()">Delete</button>
             
         </form>
-    </td>
+        </td>
         <td>
         <form action="/updt" method="post">
             
             <button class="btn btn-warning" name="prodID" value="<%=product.productID%>" onChange="this.form.submit()">Update</button>
           
         </form>
-    </td>
+        </td>
         
     
     </tr>
