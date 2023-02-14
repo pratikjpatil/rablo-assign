@@ -1,6 +1,8 @@
+require('dotenv').config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const Product = require("./models/products")
 
 const app = express();
 
@@ -20,45 +22,9 @@ const options = {
   family: 4,
 };
 
-mongoose.connect(uri, options, (err) => {
+mongoose.connect(process.env.MONGO_URI, options, (err) => {
   if (err) console.log(err);
 });
-
-const productSchema = {
-  productID: {
-    type: String,
-    required: [true, "Product must have ID"],
-    unique: true,
-  },
-
-  name: {
-    type: String,
-    required: [true, "Product must have Name"],
-  },
-
-  price: {
-    type: Number,
-    required: [true, "Product must have Price"],
-  },
-  isFeatured: {
-    type: Boolean,
-  },
-  rating: {
-    type: mongoose.Types.Decimal128,
-  },
-  createdAt: {
-    type: Date,
-    required: [true, "Product must have its creation date"],
-  },
-  company: {
-    type: String,
-    required: [true, "Product must have company name"],
-  },
-};
-
-const Product = mongoose.model("Product", productSchema);
-
-
 
 
 
@@ -214,5 +180,5 @@ app.post("/updt", (req, res) => {
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
-  console.log("server started on port " + PORT);
+  console.log(`Listening on port ${PORT}`);
 });
