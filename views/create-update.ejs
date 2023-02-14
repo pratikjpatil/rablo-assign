@@ -1,19 +1,21 @@
-<%- include("header") -%>
+<%- include("partials/header") -%>
 
 
 
 
 
 
-<div class="container container-form mt-5">
+<div class="container container-form mt-3">
     <div class="card">
-    <h4 class="card-header text-center">Update product details</h4>
+    <h4 class="card-header text-center"><%= title %></h4>
     <div class="card-body">
-    <form action="/update" method="post" class="needs-validation" novalidate>
+    <div class="form-text text-center mb-3"><%=msg%></div>
+    <form action="/<%= route %>" method="post" class="needs-validation" novalidate>
+      
         <div class="form-group">
           <label for="prodID" class="form-label required-field">Product ID</label>
-          <input type="text" class="form-control" id="prodID" name="prodID" required>
-          <div id="prodID" class="form-text">This is required field.</div>
+          <input class="form-control" type="text" id="prodID" name="prodID" value="<%=prodID%>" <%=required%> <%=readonly%>>
+          <div class="form-text" id="prodID" ><%=desc%></div>
         </div>
         
         <div class="form-group pt-3">
@@ -46,9 +48,22 @@
             <div id="prodID" class="form-text">This is required field.</div>
           </div>
           
-          <div class="form-group form-check pt-3">
-            <input type="checkbox" class="form-check-input skip-validation" id="prodIsFeatured" name="prodIsFeatured" value="true">
-            <label class="form-check-label" for="prodIsFeatured">Check if product is featured</label>
+          
+            
+            
+          <label class="form-label pt-3">Is your product featured ?</label>
+          <div class="form-group form-check">
+            
+            <input class="form-check-input" type="radio" name="prodIsFeatured" value="true" id="flexRadioDefault1">
+            <label class="form-check-label" for="flexRadioDefault1">
+              Yes
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="prodIsFeatured" value="false" id="flexRadioDefault2" checked>
+            <label class="form-check-label" for="flexRadioDefault2">
+              No
+            </label>
           </div>
 
 
@@ -56,8 +71,9 @@
         <button type="submit" class="btn btn-primary btn-block">Submit</button>
         </div>
       </form>
+      
     </div>
 </div>
 </div>
 
-<%- include("footer") -%>
+<%- include("partials/footer") -%>

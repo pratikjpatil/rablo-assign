@@ -1,11 +1,11 @@
-<%- include("header") -%>
+<%- include("partials/header") -%>
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
         <h1 class="display-4">Uh Oh!</h1>
-        <p class="lead">The product ID is not in our database. Check the ID</p>
-        <form class="" action="/update" method="get">
+        <p class="lead">There is some mistake! Check the input</p>
+        <form class="" action="/viewall" method="get">
           <button class="btn btn-lg btn-warning"type="submit" name="button">Try Again</button>
         </form>
       </div>
     </div>
-    <%- include("footer") -%>
+<%- include("partials/footer") -%>

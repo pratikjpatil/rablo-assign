@@ -20,3 +20,13 @@ input[type=date]:required:invalid::-webkit-datetime-edit {
 input[type=date]:focus::-webkit-datetime-edit {
     color: black !important;
 }
+
+
+.homeCard {
+  margin: auto;
+  max-width: 550px;
+}
+
+:host([disabled]) [part="value"]::placeholder { /* Most modern browsers support this now. */
+  opacity: 1 !important;
+}

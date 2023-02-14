@@ -1,4 +1,4 @@
-<%- include("header") -%>
+<%- include("partials/header") -%>
 
 <div class="container pt-5">
 <h2 class="text-center">All Products</h2>
@@ -29,10 +29,26 @@
         <td><%= product.rating %></td>
         <td><%= product.createdAt %></td>
         <td><%= product.company %></td>
+        <td>
+        <form action="/delete" method="post">
+            
+              <button class="btn btn-danger" name="_ID" value="<%=product._id%>" onChange="this.form.submit()">Delete</button>
+            
+        </form>
+    </td>
+        <td>
+        <form action="/updt" method="post">
+            
+            <button class="btn btn-warning" name="prodID" value="<%=product.productID%>" onChange="this.form.submit()">Update</button>
+          
+        </form>
+    </td>
+        
+    
     </tr>
     <%})%>
 </table>
 </div>
 </div>
 
-<%- include("footer") -%>
+<%- include("partials/footer") -%>

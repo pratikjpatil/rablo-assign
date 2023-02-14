@@ -1,0 +1,45 @@
+<%- include("partials/header") -%>
+
+<div class="container container-form mt-5">
+    <div class="card">
+    <h4 class="card-header text-center">Filter</h4>
+    <div class="card-body">
+    <form action="/plt" method="post">
+        <div class="form-group">
+          <label for="prodPrice" class="form-label">Enter Price</label>
+          <input type="number" class="form-control" id="prodPrice" name="prodPrice">
+          <div id="prodPrice" class="form-text">To show products less than given price</div>
+        </div>
+        <div class="form-group d-grid pt-3">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+    
+    <form action="/rgt" method="post">
+        <div class="form-group pt-4">
+            <label for="prodRating" class="form-label">Rating</label>
+            <input type="number" class="form-control" id="prodRating" name="prodRating">
+            <div id="prodRating" class="form-text">To show products greater than given rating</div>
+        </div>
+        <div class="form-group d-grid pt-3">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+    </form>
+    
+    
+          <div class="form-group pt-4 text-center">
+            <div class="form-group d-grid pt-3">
+              <a href="/featured">Show only featured products</a>
+                
+                </div>
+       
+          </div>
+          
+
+      
+    </div>
+</div>
+</div>
+
+
+<%- include("partials/footer") -%>
